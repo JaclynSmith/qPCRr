@@ -25,3 +25,5 @@ Imports:
     magrittr (>= 1.5),
     grDevices (>= 3.6.1)
 RoxygenNote: 7.1.0
+URL: https://github.com/JaclynSmith/qPCRr.git
+BugReports: https://github.com/JaclynSmith/qPCRr.git/issues
