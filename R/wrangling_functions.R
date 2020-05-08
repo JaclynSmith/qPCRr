@@ -139,6 +139,9 @@ calc_fold_change <- function(table, house_gene, control,
   #full_table: if no, will return a compact table, if yes will return all intermediate
   #qPCR calculations
 
+  #construct the current sample_name for the control based on user input-----------------------------------------
+  sample_control <- paste0(control, collapse = sep)
+
   #test table in proper format-----------------------------------------------------------------------
   checkmate::assert_tibble(table, types = c("character", "double"),
                            any.missing = FALSE, ncols = 3)
@@ -169,7 +172,7 @@ calc_fold_change <- function(table, house_gene, control,
   #assert that control is in the sample_name column
   checkmate::assert(
     checkmate::check_character(control),
-    check_sample_control(table, control, sep),
+    check_sample_control(table, sample_control),
     combine = "and"
   )
 

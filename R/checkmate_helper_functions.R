@@ -46,15 +46,12 @@ check_house_gene <- function(table, house_gene) {
   }
 }
 
-check_sample_control <- function(table, control, sep) {
+check_sample_control <- function(table, sample_control) {
   #'checkmate function to check for control condition in the table
   #'@param table a tibble
-  #'@param control a character or character list, factors which make up the control condition
-  #'@param sep a character, the separator used to combine the control conditions
+  #'@param sample_control a string, made from inputs to calc_fold_change
   #'@return true if ok, an error message if false
   #a checkmate function
-  #construct the current sample_name for the control based on user input-----------------------------------------
-  sample_control <- paste0(control, collapse = sep)
 
   #test sample_control is accurately in sample_name--------------------------------------------------------------
   if (sample_control %notin% dplyr::pull(table, sample_name)) {
