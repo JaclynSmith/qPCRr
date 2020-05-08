@@ -4,14 +4,12 @@
 \alias{check_sample_control}
 \title{checkmate function to check for control condition in the table}
 \usage{
-check_sample_control(table, control, sep)
+check_sample_control(table, sample_control)
 }
 \arguments{
 \item{table}{a tibble}
 
-\item{control}{a character or character list, factors which make up the control condition}
-
-\item{sep}{a character, the separator used to combine the control conditions}
+\item{sample_control}{a string, made from inputs to calc_fold_change}
 }
 \value{
 true if ok, an error message if false
