@@ -13,8 +13,8 @@ linear_reg <- function(table) {
   #get summary table--------------------------------------------------------------------
   sum_table <- table %>%
     dplyr::group_by(quantity) %>%
-    dplyr::summarise(avg = mean(ct), stdev = sd(ct),
-                     std_err = sd(ct) / sqrt(n())) %>%
+    dplyr::summarise(avg = mean(ct), stdev = stats::sd(ct),
+                     std_err = stats::sd(ct) / sqrt(dplyr::n())) %>%
     dplyr::mutate(log_conc = log(quantity))
 
   #generate linear regression--------------------------------------------------------
@@ -58,7 +58,7 @@ conc_calc <- function(data_table, yint, slope, avg_length, dilution_fact) {
   #get summary table--------------------------------------------------------------------
   sum_table <- data_table %>%
     dplyr::group_by(sample_name, target_name) %>%
-    dplyr::summarise(avg = mean(ct), stdev = sd(ct), std_err = sd(ct) / n()) %>%
+    dplyr::summarise(avg = mean(ct), stdev = stats::sd(ct), std_err = stats::sd(ct) / dplyr::n()) %>%
     dplyr::mutate(dil_conc = (10 ^ ((avg - yint) / slope)) *
                     (len_kapa_kit_DNA / avg_length)) %>%
     dplyr::mutate(original_conc = dil_conc * dilution_fact * pg_to_ng)
