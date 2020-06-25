@@ -1,7 +1,7 @@
 Package: qPCRr
 Type: Package
 Title: A Set of Functions to Process and Graph qPCR Data
-Version: 0.0.0.9000
+Version: 0.0.1.0
 Authors@R: person("Jaclyn", "Smith", email = "jaclynesmith1@gmail.com", 
                   role = c("aut", "cre"))
 Description: This is a package meant to process and graph qPCR data. 
