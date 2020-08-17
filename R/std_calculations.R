@@ -31,7 +31,7 @@ linear_reg <- function(table) {
   return(list(yint, slope, standards_plot))
 }
 
-conc_calc <- function(data_table, yint, slope, avg_length, dilution_fact) {
+conc_calc <- function(data_table, yint, slope, avg_length, dilution_fact, kit) {
   #'Summarize data and generate linear regression to fit standards, report linear reg variables
   #'and the plot of the summarized data
   #'@param data_table a tibble with unknown samples, 3 columns: sample_name, target_name, and ct
@@ -39,6 +39,7 @@ conc_calc <- function(data_table, yint, slope, avg_length, dilution_fact) {
   #'@param slope a numeric, the slope of the regression line
   #'@param avg_length a numeric, the avg length of the molecules in the library
   #'@param dilution_fact a numeric, the dilution factor used for quantification ie for 1:1000, you put 1000
+  #'@param kit a string either KAPA or NEB
   #'@return a tibble with original library concentrations
   #'@export
 
@@ -51,8 +52,15 @@ conc_calc <- function(data_table, yint, slope, avg_length, dilution_fact) {
   checkmate::assert_numeric(slope)
   checkmate::assert_numeric(avg_length, lower = 0)
   checkmate::assert_numeric(dilution_fact, lower = 0)
+  checkmate::assert_subset(kit, c("KAPA", "NEB"))
 
-  len_kapa_kit_DNA <- 452
+  if (kit == "KAPA") {
+    len_kit_DNA <- 452
+  }
+  if (kit == "NEB") {
+    len_kit_DNA <- 399
+  }
+    
   pg_to_ng <- 0.001
 
   #get summary table--------------------------------------------------------------------
@@ -60,7 +68,7 @@ conc_calc <- function(data_table, yint, slope, avg_length, dilution_fact) {
     dplyr::group_by(sample_name, target_name) %>%
     dplyr::summarise(avg = mean(ct), stdev = stats::sd(ct), std_err = stats::sd(ct) / dplyr::n()) %>%
     dplyr::mutate(dil_conc = (10 ^ ((avg - yint) / slope)) *
-                    (len_kapa_kit_DNA / avg_length)) %>%
+                    (len_kit_DNA / avg_length)) %>%
     dplyr::mutate(original_conc = dil_conc * dilution_fact * pg_to_ng)
 
   return(sum_table)
