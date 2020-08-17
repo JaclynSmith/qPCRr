@@ -5,7 +5,7 @@
 \title{Summarize data and generate linear regression to fit standards, report linear reg variables
 and the plot of the summarized data}
 \usage{
-conc_calc(data_table, yint, slope, avg_length, dilution_fact)
+conc_calc(data_table, yint, slope, avg_length, dilution_fact, kit)
 }
 \arguments{
 \item{data_table}{a tibble with unknown samples, 3 columns: sample_name, target_name, and ct}
@@ -17,6 +17,8 @@ conc_calc(data_table, yint, slope, avg_length, dilution_fact)
 \item{avg_length}{a numeric, the avg length of the molecules in the library}
 
 \item{dilution_fact}{a numeric, the dilution factor used for quantification ie for 1:1000, you put 1000}
+
+\item{kit}{a string either KAPA or NEB}
 }
 \value{
 a tibble with original library concentrations
