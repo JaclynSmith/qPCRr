@@ -15,7 +15,7 @@ linear_reg <- function(table) {
     dplyr::group_by(quantity) %>%
     dplyr::summarise(avg = mean(ct), stdev = stats::sd(ct),
                      std_err = stats::sd(ct) / sqrt(dplyr::n())) %>%
-    dplyr::mutate(log_conc = log(quantity))
+    dplyr::mutate(log_conc = log10(quantity))
 
   #generate linear regression--------------------------------------------------------
   linear_mod <- stats::lm(formula = avg ~ log_conc, data = sum_table)
